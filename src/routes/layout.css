@@ -1,0 +1,175 @@
+/* Google Fonts Import - must be first */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+@import "tailwindcss";
+@plugin '@tailwindcss/forms';
+
+/* ======================================
+   THE HORSE PROJECT - SAGE & IVORY THEME
+   ====================================== */
+
+/* Custom Theme Colors */
+@theme {
+  /* Primary Colors - "Sage & Ivory" */
+  --color-forest: #2d5a4a;
+  --color-ivory: #fdfbf7;
+  --color-sage: #7c9a82;
+  --color-stone: #9ca3a0;
+
+  /* Extended Palette */
+  --color-forest-light: #3d7a64;
+  --color-forest-dark: #1d4a3a;
+  --color-sage-light: #9bb3a0;
+  --color-sage-dark: #5c7a62;
+  --color-ivory-light: #ffffff;
+  --color-ivory-dark: #f5f0e8;
+  --color-butter: #fdf6e3;
+
+  /* Legacy aliases for hero section compatibility */
+  --color-obsidian: #050505;
+  --color-cream: #fdfbf7;
+  --color-gold: #7c9a82;
+  --color-cream-light: #fdf6e3;
+  --color-cream-dark: #f5f0e8;
+  --color-gold-light: #9bb3a0;
+  --color-gold-dark: #5c7a62;
+
+  /* Typography */
+  --font-display: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-ivory);
+  color: var(--color-forest);
+  line-height: 1.6;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-sage);
+  color: var(--color-ivory);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ivory-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-stone);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sage);
+}
+
+/* Focus States */
+*:focus-visible {
+  outline: 2px solid var(--color-sage);
+  outline-offset: 2px;
+}
+
+/* Link Defaults */
+@layer base {
+  a {
+    color: var(--color-sage-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-sage);
+  }
+}
+
+/* Animation Utilities */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes counter-up {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-counter-up {
+  animation: counter-up 0.5s ease-out forwards;
+}
+
+/* Stagger animations for children */
+.stagger-children > * {
+  opacity: 0;
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.stagger-children > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.stagger-children > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.stagger-children > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.stagger-children > *:nth-child(5) {
+  animation-delay: 0.5s;
+}

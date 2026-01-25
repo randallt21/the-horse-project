@@ -1,0 +1,68 @@
+[
+  {
+    "id": "anjo",
+    "name": "Anjo",
+    "breed": "Quarter Horse",
+    "birthYear": 2015,
+    "status": "Available",
+    "bio": "Anjo is a gentle soul with a calm demeanor. He excels in groundwork and has shown great potential for therapeutic programs. His patient nature makes him perfect for beginners.",
+    "image": "/horses/anjo.jpg"
+  },
+  {
+    "id": "jalisco",
+    "name": "Jalisco",
+    "breed": "Andalusian Mix",
+    "birthYear": 2012,
+    "status": "Available",
+    "bio": "Jalisco brings elegance and grace to everything he does. With his striking appearance and willing attitude, he's ready to find his forever home.",
+    "image": "/horses/jalisco.jpg"
+  },
+  {
+    "id": "savannah",
+    "name": "Savannah",
+    "breed": "Paint Horse",
+    "birthYear": 2008,
+    "status": "Sanctuary",
+    "bio": "A trauma survivor who has found peace at The Horse Project. Savannah now serves as a gentle teacher, helping participants learn about trust and healing.",
+    "image": "/horses/savannah.jpg",
+    "sponsorshipTier": "Gold Sponsor"
+  },
+  {
+    "id": "diego",
+    "name": "Diego",
+    "breed": "Mustang",
+    "birthYear": 2010,
+    "status": "Sanctuary",
+    "bio": "Diego was wild-born and rescued from a difficult situation. His journey from fear to trust is an inspiration to everyone who meets him.",
+    "image": "/horses/diego.jpg",
+    "sponsorshipTier": "Silver Sponsor"
+  },
+  {
+    "id": "ruby",
+    "name": "Ruby",
+    "breed": "Arabian",
+    "birthYear": 2006,
+    "status": "Sanctuary",
+    "bio": "Ruby is the undisputed leader of the herd. Her wisdom and confident presence help maintain peace among all the horses. She's been with us the longest.",
+    "image": "/horses/ruby.jpg",
+    "sponsorshipTier": "Founding Sponsor"
+  },
+  {
+    "id": "greyson",
+    "name": "Greyson",
+    "breed": "Thoroughbred",
+    "birthYear": 2014,
+    "status": "Available",
+    "bio": "A former racehorse who has successfully transitioned to a calmer life. Greyson is intelligent and eager to please, making him a wonderful companion.",
+    "image": "/horses/greyson.jpg"
+  },
+  {
+    "id": "ms-jackie-blue",
+    "name": "Ms. Jackie Blue",
+    "breed": "Appaloosa",
+    "birthYear": 2009,
+    "status": "Adopted",
+    "bio": "Ms. Jackie Blue found her forever home in 2023! She now lives on a beautiful ranch with a loving family who adores her spotted coat and playful personality.",
+    "image": "/horses/jackie-blue.jpg"
+  }
+]
