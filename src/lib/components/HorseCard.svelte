@@ -34,11 +34,13 @@
 				</svg>
 			</div>
 			<!-- Actual image (when available) -->
-			<!-- <img 
-				src={horse.image} 
-				alt={horse.name}
-				class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-			/> -->
+			{#if horse.image}
+				<img
+					src={horse.image}
+					alt={horse.name}
+					class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+				/>
+			{/if}
 
 			<!-- Status Badge -->
 			<div class="absolute top-3 right-3">

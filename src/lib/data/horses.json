@@ -44,7 +44,7 @@
     "birthYear": 2006,
     "status": "Sanctuary",
     "bio": "Ruby is the undisputed leader of the herd. Her wisdom and confident presence help maintain peace among all the horses. She's been with us the longest.",
-    "image": "/horses/ruby.jpg",
+    "image": "/horses/ruby.png",
     "sponsorshipTier": "Founding Sponsor"
   },
   {
@@ -52,7 +52,7 @@
     "name": "Greyson",
     "breed": "Thoroughbred",
     "birthYear": 2014,
-    "status": "Available",
+    "status": "Adopted",
     "bio": "A former racehorse who has successfully transitioned to a calmer life. Greyson is intelligent and eager to please, making him a wonderful companion.",
     "image": "/horses/greyson.jpg"
   },
