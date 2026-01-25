@@ -1,0 +1,8 @@
+name = "the-horse-project"
+compatibility_date = "2024-01-01"
+
+# Email Routing binding - sends volunteer form notifications to staff
+# IMPORTANT: Update destination_address with your verified email from Cloudflare Dashboard
+[[send_email]]
+name = "EMAIL"
+destination_address = "volunteers@thehorseprojectsantabarbara.com"

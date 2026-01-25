@@ -31,6 +31,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-cloudflare": "^7.2.6",
+		"mimetext": "^3.0.27",
 		"zod": "^4.3.6"
 	},
 	"packageManager": "pnpm@10.23.0"

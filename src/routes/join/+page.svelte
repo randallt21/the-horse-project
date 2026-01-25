@@ -1,17 +1,27 @@
 <script lang="ts">
-	import { Button, Card } from '$lib/components';
-	import { volunteerSchema, type VolunteerFormData } from '$lib/schemas';
+	import { enhance } from "$app/forms";
+	import { Button, Card } from "$lib/components";
+	import { volunteerSchema, type VolunteerFormData } from "$lib/schemas";
+
+	// Props from form action
+	let { form } = $props<{
+		form?: {
+			success?: boolean;
+			errors?: Record<string, string>;
+			data?: Partial<VolunteerFormData>;
+		};
+	}>();
 
 	// Form state
 	let formData = $state<Partial<VolunteerFormData>>({
-		firstName: '',
-		lastName: '',
-		email: '',
-		phone: '',
-		bio: '',
+		firstName: "",
+		lastName: "",
+		email: "",
+		phone: "",
+		bio: "",
 		availability: [],
-		orientationDate: '',
-		referralSource: ''
+		orientationDate: "",
+		referralSource: "",
 	});
 
 	let errors = $state<Record<string, string>>({});
@@ -19,21 +29,21 @@
 	let isSubmitting = $state(false);
 
 	const shifts = [
-		{ id: 'mon_am', label: 'Monday AM', time: '8:00 - 12:00' },
-		{ id: 'mon_pm', label: 'Monday PM', time: '1:00 - 5:00' },
-		{ id: 'thu_am', label: 'Thursday AM', time: '8:00 - 12:00' },
-		{ id: 'fri_am', label: 'Friday AM', time: '8:00 - 12:00' },
-		{ id: 'sat_am', label: 'Saturday AM', time: '8:00 - 12:00' },
-		{ id: 'sun_am', label: 'Sunday AM', time: '8:00 - 12:00' }
+		{ id: "mon_am", label: "Monday AM", time: "8:00 - 12:00" },
+		{ id: "mon_pm", label: "Monday PM", time: "1:00 - 5:00" },
+		{ id: "thu_am", label: "Thursday AM", time: "8:00 - 12:00" },
+		{ id: "fri_am", label: "Friday AM", time: "8:00 - 12:00" },
+		{ id: "sat_am", label: "Saturday AM", time: "8:00 - 12:00" },
+		{ id: "sun_am", label: "Sunday AM", time: "8:00 - 12:00" },
 	] as const;
 
 	const referralSources = [
-		'Friend or Family',
-		'Social Media',
-		'Google Search',
-		'Local Event',
-		'News/Media',
-		'Other'
+		"Friend or Family",
+		"Social Media",
+		"Google Search",
+		"Local Event",
+		"News/Media",
+		"Other",
 	];
 
 	function toggleShift(shiftId: string) {
@@ -59,20 +69,25 @@
 		return true;
 	}
 
-	function handleSubmit(e: SubmitEvent) {
-		e.preventDefault();
-
-		if (!validateForm()) {
-			return;
-		}
-
-		isSubmitting = true;
-
-		// Simulate submission (UI only - no backend yet)
-		setTimeout(() => {
-			isSubmitting = false;
+	// Check if form was successfully submitted (via server action)
+	$effect(() => {
+		if (form?.success) {
 			submitted = true;
-		}, 1500);
+			isSubmitting = false;
+		}
+		if (form?.errors) {
+			errors = form.errors;
+			isSubmitting = false;
+		}
+	});
+
+	function handleSubmit() {
+		// Client-side validation first for immediate feedback
+		if (!validateForm()) {
+			return false; // Prevent form submission
+		}
+		isSubmitting = true;
+		return true; // Allow form submission to server
 	}
 </script>
 
@@ -91,8 +106,9 @@
 			Become a <span class="text-sage">Volunteer</span>
 		</h1>
 		<p class="mx-auto max-w-2xl text-lg text-ivory/70">
-			Join our team of dedicated volunteers who help care for our rescued horses. No experience
-			necessary—just a love for horses and a willingness to learn.
+			Join our team of dedicated volunteers who help care for our rescued
+			horses. No experience necessary—just a love for horses and a
+			willingness to learn.
 		</p>
 	</div>
 </section>
@@ -123,12 +139,15 @@
 									/>
 								</svg>
 							</div>
-							<h2 class="mb-4 font-display text-2xl font-bold text-forest">
+							<h2
+								class="mb-4 font-display text-2xl font-bold text-forest"
+							>
 								Thank You for Your Interest!
 							</h2>
 							<p class="mx-auto mb-6 max-w-md text-forest/70">
-								We've received your volunteer application. Our team will be in touch within 48 hours
-								to discuss next steps.
+								We've received your volunteer application. Our
+								team will be in touch within 48 hours to discuss
+								next steps.
 							</p>
 							<Button variant="primary" href="/">
 								{#snippet children()}
@@ -142,43 +161,79 @@
 				<!-- Form -->
 				<Card padding="lg">
 					{#snippet children()}
-						<form onsubmit={handleSubmit} class="space-y-8">
+						<form
+							method="POST"
+							use:enhance={({ cancel }) => {
+								if (!handleSubmit()) {
+									cancel();
+								}
+							}}
+							class="space-y-8"
+						>
+							<!-- Hidden inputs for availability (since toggle buttons don't submit) -->
+							{#each formData.availability || [] as shift}
+								<input
+									type="hidden"
+									name="availability"
+									value={shift}
+								/>
+							{/each}
 							<!-- Personal Info -->
 							<div>
-								<h2 class="mb-4 font-display text-xl font-semibold text-forest">
+								<h2
+									class="mb-4 font-display text-xl font-semibold text-forest"
+								>
 									Personal Information
 								</h2>
-								<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+								<div
+									class="grid grid-cols-1 gap-6 md:grid-cols-2"
+								>
 									<div>
-										<label for="firstName" class="mb-2 block text-sm font-medium text-forest">
+										<label
+											for="firstName"
+											class="mb-2 block text-sm font-medium text-forest"
+										>
 											First Name *
 										</label>
 										<input
 											type="text"
 											id="firstName"
+											name="firstName"
 											bind:value={formData.firstName}
 											class="w-full rounded-lg border px-4 py-3 {errors.firstName
 												? 'border-red-500'
 												: 'border-ivory-dark'} focus:border-sage focus:ring-2 focus:ring-sage/20"
 										/>
 										{#if errors.firstName}
-											<p class="mt-1 text-sm text-red-500">{errors.firstName}</p>
+											<p
+												class="mt-1 text-sm text-red-500"
+											>
+												{errors.firstName}
+											</p>
 										{/if}
 									</div>
 									<div>
-										<label for="lastName" class="mb-2 block text-sm font-medium text-forest">
+										<label
+											for="lastName"
+											class="mb-2 block text-sm font-medium text-forest"
+										>
 											Last Name *
 										</label>
 										<input
 											type="text"
 											id="lastName"
+											name="lastName"
 											bind:value={formData.lastName}
 											class="w-full rounded-lg border px-4 py-3 {errors.lastName
 												? 'border-red-500'
 												: 'border-ivory-dark'} focus:border-sage focus:ring-2 focus:ring-sage/20"
 										/>
 										{#if errors.lastName}
-											<p class="mt-1 text-sm text-red-500">{errors.lastName}</p>
+											<p
+												class="mt-1 text-sm text-red-500"
+											>
+												{errors.lastName}
+											</p>
 										{/if}
 									</div>
 								</div>
@@ -187,46 +242,62 @@
 							<!-- Contact Info -->
 							<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 								<div>
-									<label for="email" class="mb-2 block text-sm font-medium text-forest">
+									<label
+										for="email"
+										class="mb-2 block text-sm font-medium text-forest"
+									>
 										Email Address *
 									</label>
 									<input
 										type="email"
 										id="email"
+										name="email"
 										bind:value={formData.email}
 										class="w-full rounded-lg border px-4 py-3 {errors.email
 											? 'border-red-500'
 											: 'border-ivory-dark'} focus:border-sage focus:ring-2 focus:ring-sage/20"
 									/>
 									{#if errors.email}
-										<p class="mt-1 text-sm text-red-500">{errors.email}</p>
+										<p class="mt-1 text-sm text-red-500">
+											{errors.email}
+										</p>
 									{/if}
 								</div>
 								<div>
-									<label for="phone" class="mb-2 block text-sm font-medium text-forest">
+									<label
+										for="phone"
+										class="mb-2 block text-sm font-medium text-forest"
+									>
 										Phone Number *
 									</label>
 									<input
 										type="tel"
 										id="phone"
+										name="phone"
 										bind:value={formData.phone}
 										class="w-full rounded-lg border px-4 py-3 {errors.phone
 											? 'border-red-500'
 											: 'border-ivory-dark'} focus:border-sage focus:ring-2 focus:ring-sage/20"
 									/>
 									{#if errors.phone}
-										<p class="mt-1 text-sm text-red-500">{errors.phone}</p>
+										<p class="mt-1 text-sm text-red-500">
+											{errors.phone}
+										</p>
 									{/if}
 								</div>
 							</div>
 
 							<!-- Bio -->
 							<div>
-								<label for="bio" class="mb-2 block text-sm font-medium text-forest">
+								<label
+									for="bio"
+									class="mb-2 block text-sm font-medium text-forest"
+								>
 									Tell Us About Yourself
 								</label>
 								<textarea
 									id="bio"
+									name="bio"
 									rows="4"
 									bind:value={formData.bio}
 									placeholder="Share your experience with horses, why you want to volunteer, etc."
@@ -239,38 +310,55 @@
 
 							<!-- Availability -->
 							<div>
-								<h2 class="mb-4 font-display text-xl font-semibold text-forest">
+								<h2
+									class="mb-4 font-display text-xl font-semibold text-forest"
+								>
 									Availability *
 								</h2>
-								<p class="mb-4 text-sm text-forest/70">Select the shifts you're available for:</p>
-								<div class="grid grid-cols-2 gap-3 md:grid-cols-3">
+								<p class="mb-4 text-sm text-forest/70">
+									Select the shifts you're available for:
+								</p>
+								<div
+									class="grid grid-cols-2 gap-3 md:grid-cols-3"
+								>
 									{#each shifts as shift}
 										<button
 											type="button"
-											onclick={() => toggleShift(shift.id)}
+											onclick={() =>
+												toggleShift(shift.id)}
 											class="rounded-lg border p-4 text-left transition-all {formData.availability?.includes(
-												shift.id as any
+												shift.id as any,
 											)
 												? 'border-sage bg-sage text-forest'
 												: 'border-ivory-dark bg-white hover:border-sage'}"
 										>
-											<p class="font-medium">{shift.label}</p>
-											<p class="text-sm opacity-70">{shift.time}</p>
+											<p class="font-medium">
+												{shift.label}
+											</p>
+											<p class="text-sm opacity-70">
+												{shift.time}
+											</p>
 										</button>
 									{/each}
 								</div>
 								{#if errors.availability}
-									<p class="mt-2 text-sm text-red-500">{errors.availability}</p>
+									<p class="mt-2 text-sm text-red-500">
+										{errors.availability}
+									</p>
 								{/if}
 							</div>
 
 							<!-- Referral Source -->
 							<div>
-								<label for="referralSource" class="mb-2 block text-sm font-medium text-forest">
+								<label
+									for="referralSource"
+									class="mb-2 block text-sm font-medium text-forest"
+								>
 									How did you hear about us?
 								</label>
 								<select
 									id="referralSource"
+									name="referralSource"
 									bind:value={formData.referralSource}
 									class="w-full rounded-lg border border-ivory-dark px-4 py-3 focus:border-sage focus:ring-2 focus:ring-sage/20"
 								>
@@ -283,11 +371,21 @@
 
 							<!-- Submit -->
 							<div class="pt-4">
-								<Button variant="primary" size="lg" type="submit" disabled={isSubmitting}>
+								<Button
+									variant="primary"
+									size="lg"
+									type="submit"
+									disabled={isSubmitting}
+								>
 									{#snippet children()}
 										{#if isSubmitting}
-											<span class="flex items-center gap-2">
-												<svg class="h-5 w-5 animate-spin" viewBox="0 0 24 24">
+											<span
+												class="flex items-center gap-2"
+											>
+												<svg
+													class="h-5 w-5 animate-spin"
+													viewBox="0 0 24 24"
+												>
 													<circle
 														class="opacity-25"
 														cx="12"
@@ -311,7 +409,8 @@
 									{/snippet}
 								</Button>
 								<p class="mt-4 text-sm text-forest/50">
-									By submitting, you agree to attend a brief orientation session before your first
+									By submitting, you agree to attend a brief
+									orientation session before your first
 									volunteer shift.
 								</p>
 							</div>
@@ -327,36 +426,48 @@
 <section class="bg-ivory-light py-24">
 	<div class="container mx-auto px-6">
 		<div class="mb-12 text-center">
-			<h2 class="mb-4 font-display text-3xl font-bold text-forest">What Volunteers Do</h2>
+			<h2 class="mb-4 font-display text-3xl font-bold text-forest">
+				What Volunteers Do
+			</h2>
 			<p class="mx-auto max-w-2xl text-forest/70">
-				Our volunteers are essential to daily operations. Here's what a typical day looks like:
+				Our volunteers are essential to daily operations. Here's what a
+				typical day looks like:
 			</p>
 		</div>
 
 		<div class="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3">
 			<Card padding="md">
 				{#snippet children()}
-					<h3 class="mb-3 font-semibold text-forest">🐴 Horse Care</h3>
+					<h3 class="mb-3 font-semibold text-forest">
+						🐴 Horse Care
+					</h3>
 					<p class="text-sm text-forest/70">
-						Feeding, grooming, and general care. No experience needed—we'll teach you everything!
+						Feeding, grooming, and general care. No experience
+						needed—we'll teach you everything!
 					</p>
 				{/snippet}
 			</Card>
 
 			<Card padding="md">
 				{#snippet children()}
-					<h3 class="mb-3 font-semibold text-forest">🧹 Facility Maintenance</h3>
+					<h3 class="mb-3 font-semibold text-forest">
+						🧹 Facility Maintenance
+					</h3>
 					<p class="text-sm text-forest/70">
-						Help keep our stables and grounds clean and safe for both horses and visitors.
+						Help keep our stables and grounds clean and safe for
+						both horses and visitors.
 					</p>
 				{/snippet}
 			</Card>
 
 			<Card padding="md">
 				{#snippet children()}
-					<h3 class="mb-3 font-semibold text-forest">👥 Program Support</h3>
+					<h3 class="mb-3 font-semibold text-forest">
+						👥 Program Support
+					</h3>
 					<p class="text-sm text-forest/70">
-						Assist with our therapeutic programs and weekend play sessions.
+						Assist with our therapeutic programs and weekend play
+						sessions.
 					</p>
 				{/snippet}
 			</Card>

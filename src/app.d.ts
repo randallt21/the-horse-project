@@ -3,26 +3,52 @@
 
 // Cloudflare Pages platform types
 // Reference: https://developers.cloudflare.com/pages/framework-guides/deploy-a-svelte-kit-site/
-declare global {
-  namespace App {
-    // interface Error {}
-    // interface Locals {}
-    // interface PageData {}
-    // interface PageState {}
 
-    interface Platform {
-      env?: {
-        // Future: Email Routing binding
-        // EMAIL?: SendEmail;
-        // Future: Payment integration
-        // STRIPE_SECRET_KEY?: string;
-      };
-      context?: {
-        waitUntil(promise: Promise<unknown>): void;
-      };
-      caches?: CacheStorage;
-    }
-  }
+// Cloudflare Email Routing types
+// Reference: https://developers.cloudflare.com/email-routing/email-workers/send-email-workers/
+interface EmailMessage {
+	readonly from: string;
+	readonly to: string;
+	readonly raw: Uint8Array | string;
+}
+
+interface SendEmail {
+	send(message: EmailMessage): Promise<void>;
+}
+
+// EmailMessage constructor for creating messages
+declare class EmailMessageClass {
+	constructor(from: string, to: string, raw: Uint8Array | string);
+	readonly from: string;
+	readonly to: string;
+	readonly raw: Uint8Array | string;
+}
+
+declare global {
+	namespace App {
+		// interface Error {}
+		// interface Locals {}
+		// interface PageData {}
+		// interface PageState {}
+
+		interface Platform {
+			env?: {
+				// Cloudflare Email Routing binding
+				EMAIL?: SendEmail;
+			};
+			context?: {
+				waitUntil(promise: Promise<unknown>): void;
+			};
+			caches?: CacheStorage;
+		}
+	}
+}
+
+declare module 'cloudflare:email' {
+	export class EmailMessage {
+		constructor(from: string, to: string, raw: Uint8Array | string);
+	}
 }
 
 export {};
+
