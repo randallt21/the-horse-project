@@ -17,7 +17,7 @@
 
 	const statusStyles: Record<HorseStatus, string> = {
 		Available: "bg-emerald-100 text-emerald-800 border border-emerald-200",
-		Sanctuary: "bg-sage/20 text-sage-dark border border-sage/30",
+		Sanctuary: "bg-sage text-white border border-sage",
 		Adopted: "bg-stone/20 text-stone border border-stone/30",
 	};
 
@@ -33,5 +33,5 @@
 </script>
 
 <span class={classes}>
-	{status}
+	{status === "Sanctuary" ? "DONATE TO" : status}
 </span>

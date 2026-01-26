@@ -11,7 +11,7 @@
 
 	const contactInfo = {
 		location: "Santa Barbara, California",
-		email: "info@thehorseprojectsantabarbara.com",
+		email: "thehorseprojectsb@gmail.com",
 	};
 </script>
 

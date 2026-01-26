@@ -97,7 +97,7 @@
 
 					<Button
 						variant="primary"
-						href="mailto:info@thehorseprojectsantabarbara.com"
+						href="mailto:thehorseprojectsb@gmail.com"
 					>
 						{#snippet children()}
 							Inquire About Programs
@@ -106,35 +106,14 @@
 				</div>
 
 				<div class="space-y-6">
-					<!-- Placeholder for video/image -->
-					<div
-						class="flex aspect-video items-center justify-center rounded-2xl bg-gradient-to-br from-gold/20 to-obsidian/10"
-					>
-						<div class="text-center">
-							<svg
-								class="mx-auto mb-3 h-16 w-16 text-sage/40"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="1.5"
-									d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-								/>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="1.5"
-									d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-								/>
-							</svg>
-							<p class="text-sm text-forest/50">
-								Video coming soon
-							</p>
-						</div>
-					</div>
+					<iframe
+						src="https://www.youtube.com/embed/U10NdeKeHD0"
+						title="Better With Horses Program"
+						class="aspect-video w-full rounded-2xl shadow-sm"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					></iframe>
 
 					<Card padding="md">
 						{#snippet children()}
@@ -161,23 +140,11 @@
 		<div class="mx-auto max-w-6xl">
 			<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
 				<div class="order-2 lg:order-1">
-					<div
-						class="flex aspect-square items-center justify-center rounded-2xl bg-gradient-to-br from-gold/30 to-cream/10"
-					>
-						<svg
-							class="h-32 w-32 text-sage/40"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="1"
-								d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-							/>
-						</svg>
-					</div>
+					<img
+						src="/women-and-horses.avif"
+						alt="Play With Rescued Horses"
+						class="aspect-square w-full rounded-2xl object-cover shadow-md"
+					/>
 				</div>
 
 				<div class="order-1 lg:order-2">
@@ -228,7 +195,7 @@
 
 					<Button
 						variant="primary"
-						href="mailto:info@thehorseprojectsantabarbara.com"
+						href="mailto:thehorseprojectsb@gmail.com"
 					>
 						{#snippet children()}
 							Book Your Session
@@ -346,7 +313,7 @@
 		<div class="flex flex-col justify-center gap-4 sm:flex-row">
 			<Button
 				variant="secondary"
-				href="mailto:info@thehorseprojectsantabarbara.com"
+				href="mailto:thehorseprojectsb@gmail.com"
 			>
 				{#snippet children()}
 					Contact Us

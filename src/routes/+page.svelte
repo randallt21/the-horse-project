@@ -7,7 +7,7 @@
 	// Create Horse instances
 	const horses = Horse.fromArray(horsesData as IHorseData[]);
 	const featuredHorses = horses
-		.filter((h) => h.status === "Available")
+		.filter((h) => h.status === "Available" || h.status === "Sanctuary")
 		.slice(0, 3);
 
 	// Impact stats

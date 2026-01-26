@@ -82,7 +82,7 @@
 		// This is a placeholder - payment integration will be added later
 		// See: docs/future/donation-integration.md
 		alert(
-			`Thank you for your interest in donating $${totalWithFees} (${frequency})!\n\nPayment processing coming soon. Please contact us at info@thehorseprojectsantabarbara.com to donate.`,
+			`Thank you for your interest in donating $${totalWithFees} (${frequency})!\n\nPayment processing coming soon. Please contact us at thehorseprojectsb@gmail.com to donate.`,
 		);
 	}
 </script>
@@ -257,10 +257,10 @@
 					Payment integration coming soon. For immediate donations,
 					please contact us at
 					<a
-						href="mailto:info@thehorseprojectsantabarbara.com"
+						href="mailto:thehorseprojectsb@gmail.com"
 						class="text-sage hover:underline"
 					>
-						info@thehorseprojectsantabarbara.com
+						thehorseprojectsb@gmail.com
 					</a>
 				</p>
 			</div>
@@ -329,7 +329,7 @@
 						our horses need.
 					</p>
 					<Button
-						href="mailto:info@thehorseprojectsantabarbara.com"
+						href="mailto:thehorseprojectsb@gmail.com"
 						variant="secondary"
 						class="w-full sm:w-auto"
 					>
@@ -352,7 +352,7 @@
 						team retreats.
 					</p>
 					<Button
-						href="mailto:info@thehorseprojectsantabarbara.com"
+						href="mailto:thehorseprojectsb@gmail.com"
 						variant="secondary"
 						class="w-full sm:w-auto"
 					>

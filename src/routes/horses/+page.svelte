@@ -55,7 +55,7 @@
 				<button
 					class="rounded-full px-6 py-2 font-medium transition-all {activeFilter ===
 					filter
-						? 'bg-sage text-forest'
+						? 'bg-sage text-white'
 						: 'bg-white text-forest/70 hover:bg-ivory-dark'}"
 					onclick={() => (activeFilter = filter)}
 				>
@@ -126,7 +126,7 @@
 					</ul>
 					<Button
 						variant="secondary"
-						href="mailto:info@thehorseprojectsantabarbara.com"
+						href="mailto:thehorseprojectsb@gmail.com"
 						class="border-sage hover:bg-sage hover:text-white"
 					>
 						{#snippet children()}
