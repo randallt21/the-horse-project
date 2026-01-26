@@ -436,6 +436,7 @@
                                     <div class="grid grid-cols-1 gap-4">
                                         <div>
                                             <label
+                                                for="card_number"
                                                 class="mb-2 block text-xs font-semibold uppercase tracking-wider text-forest/60"
                                             >
                                                 Card Number
