@@ -126,7 +126,7 @@
 					</ul>
 					<Button
 						variant="secondary"
-						href="mailto:thehorseprojectsb@gmail.com"
+						href="/contact?subject=Adoption"
 						class="border-sage hover:bg-sage hover:text-white"
 					>
 						{#snippet children()}

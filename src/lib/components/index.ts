@@ -4,4 +4,5 @@ export { default as Card } from "./Card.svelte";
 export { default as Badge } from "./Badge.svelte";
 export { default as Navbar } from "./Navbar.svelte";
 export { default as Footer } from "./Footer.svelte";
+export { default as DatePicker } from "./DatePicker.svelte";
 export { default as HorseCard } from "./HorseCard.svelte";

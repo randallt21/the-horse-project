@@ -257,10 +257,10 @@
 					Payment integration coming soon. For immediate donations,
 					please contact us at
 					<a
-						href="mailto:thehorseprojectsb@gmail.com"
+						href="/contact?subject=Donations"
 						class="text-sage hover:underline"
 					>
-						thehorseprojectsb@gmail.com
+						Contact Us
 					</a>
 				</p>
 			</div>
@@ -316,7 +316,9 @@
 			</h2>
 		</div>
 
-		<div class="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
+		<div
+			class="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+		>
 			<Card padding="lg">
 				{#snippet children()}
 					<h3
@@ -329,14 +331,37 @@
 						our horses need.
 					</p>
 					<Button
-						href="mailto:thehorseprojectsb@gmail.com"
+						href="https://www.amazon.com/hz/wishlist/ls/18MY9X7RW8Q4G"
 						variant="secondary"
 						class="w-full sm:w-auto"
 					>
 						{#snippet children()}
-							Contact us for wishlist
+							Amazon Wishlist
 						{/snippet}
 					</Button>
+				{/snippet}
+			</Card>
+
+			<Card padding="lg">
+				{#snippet children()}
+					<h3
+						class="mb-3 font-display text-xl font-semibold text-forest"
+					>
+						📫 Mail a Check
+					</h3>
+					<div class="mb-4 text-sm text-forest/70 space-y-1">
+						<p class="font-semibold text-forest">
+							Make payable to:
+						</p>
+						<p class="mb-2">THE HORSE PROJECT</p>
+
+						<p class="font-semibold text-forest mt-3">Mail to:</p>
+						<p>The Horse Project</p>
+						<p>Players Philanthropy Fund</p>
+						<p>ATTN: Stephanie Steelman</p>
+						<p>1122 Kenilworth Drive STE #201</p>
+						<p>Towson, MD 21204</p>
+					</div>
 				{/snippet}
 			</Card>
 
@@ -352,12 +377,12 @@
 						team retreats.
 					</p>
 					<Button
-						href="mailto:thehorseprojectsb@gmail.com"
+						href="/contact?subject=Corporate%20Sponsorship"
 						variant="secondary"
 						class="w-full sm:w-auto"
 					>
 						{#snippet children()}
-							Become a partner
+							Become a Partner
 						{/snippet}
 					</Button>
 				{/snippet}

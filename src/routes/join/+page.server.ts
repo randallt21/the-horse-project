@@ -65,43 +65,13 @@ This email was automatically sent from the website volunteer form.
 `.trim();
 
 		// Send email notification via Cloudflare Email Routing
-		// This only works in production (deployed to Cloudflare)
-		if (platform?.env?.EMAIL) {
-			try {
-				// Dynamic import to avoid build issues in dev
-				const { createMimeMessage } = await import('mimetext');
-				const { EmailMessage: EmailMessageCtor } = globalThis as unknown as { EmailMessage: new (from: string, to: string, raw: string) => { from: string; to: string; raw: string } };
+		const { sendEmail } = await import('$lib/server/email');
 
-				const msg = createMimeMessage();
-				msg.setSender({
-					name: 'The Horse Project Website',
-					addr: 'website@thehorseprojectsantabarbara.com'
-				});
-				msg.setRecipient('volunteers@thehorseprojectsantabarbara.com');
-				msg.setSubject(`New Volunteer Application: ${data.firstName} ${data.lastName}`);
-				msg.addMessage({
-					contentType: 'text/plain',
-					data: emailBody
-				});
-
-				const message = new EmailMessageCtor(
-					'website@thehorseprojectsantabarbara.com',
-					'volunteers@thehorseprojectsantabarbara.com',
-					msg.asRaw()
-				);
-
-				await platform.env.EMAIL.send(message);
-			} catch (error) {
-				// Log error but don't fail the submission
-				console.error('Failed to send email notification:', error);
-			}
-		} else {
-			// Local development - log that email would be sent
-			console.log('[DEV] Would send volunteer notification email:', {
-				to: 'volunteers@thehorseprojectsantabarbara.com',
-				subject: `New Volunteer Application: ${data.firstName} ${data.lastName}`
-			});
-		}
+		await sendEmail(platform, {
+			to: 'volunteers@thehorseprojectsantabarbara.com', // Keeping the specific destination for volunteers
+			subject: `New Volunteer Application: ${data.firstName} ${data.lastName}`,
+			text: emailBody
+		});
 
 		return { success: true };
 	}

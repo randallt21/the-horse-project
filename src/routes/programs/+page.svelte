@@ -95,10 +95,7 @@
 						</ul>
 					</div>
 
-					<Button
-						variant="primary"
-						href="mailto:thehorseprojectsb@gmail.com"
-					>
+					<Button variant="primary" href="/contact?subject=Programs">
 						{#snippet children()}
 							Inquire About Programs
 						{/snippet}
@@ -193,10 +190,7 @@
 						</div>
 					</div>
 
-					<Button
-						variant="primary"
-						href="mailto:thehorseprojectsb@gmail.com"
-					>
+					<Button variant="primary" href="/book">
 						{#snippet children()}
 							Book Your Session
 						{/snippet}
@@ -311,10 +305,7 @@
 			experience with horses, we're here to welcome you.
 		</p>
 		<div class="flex flex-col justify-center gap-4 sm:flex-row">
-			<Button
-				variant="secondary"
-				href="mailto:thehorseprojectsb@gmail.com"
-			>
+			<Button variant="secondary" href="/contact?subject=Programs">
 				{#snippet children()}
 					Contact Us
 				{/snippet}

@@ -28,3 +28,30 @@ export const donationSchema = z.object({
 });
 
 export type DonationFormData = z.infer<typeof donationSchema>;
+
+/**
+ * Contact form validation schema
+ */
+export const contactSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().optional(),
+  subject: z.string().min(1, "Please select a subject"),
+  message: z.string().min(1, "Message is required").max(1000, "Message must be 1000 characters or less"),
+});
+
+export type ContactFormData = z.infer<typeof contactSchema>;
+
+/**
+ * Booking form validation schema
+ */
+export const bookingSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().min(10, "Phone number must be at least 10 digits"),
+  date: z.string().min(1, "Please select a date"),
+  guests: z.number().min(1, "At least one guest is required").max(10, "Maximum 10 guests per booking"),
+  totalAmount: z.number().min(65, "Invalid total amount"),
+});
+
+export type BookingFormData = z.infer<typeof bookingSchema>;

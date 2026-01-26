@@ -96,7 +96,14 @@
 								d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
 							/>
 						</svg>
-						<span class="break-all">{contactInfo.email}</span>
+						<span class="break-all">
+							<a
+								href="mailto:{contactInfo.email}"
+								class="text-ivory/70 transition-colors hover:text-sage"
+							>
+								{contactInfo.email}
+							</a>
+						</span>
 					</li>
 				</ul>
 
@@ -106,7 +113,7 @@
 						href="https://www.facebook.com/TheHorseProject/"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="flex h-10 w-10 items-center justify-center rounded-full bg-ivory/10 transition-all hover:bg-sage hover:text-forest"
+						class="flex h-10 w-10 items-center justify-center rounded-full bg-ivory/10 text-sage transition-all hover:scale-110 hover:bg-sage hover:text-forest hover:shadow-lg"
 						aria-label="Facebook"
 					>
 						<svg
@@ -123,7 +130,7 @@
 						href="https://www.instagram.com/thehorseprojectsb/?hl=en"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="flex h-10 w-10 items-center justify-center rounded-full bg-ivory/10 transition-all hover:bg-sage hover:text-forest"
+						class="flex h-10 w-10 items-center justify-center rounded-full bg-ivory/10 text-sage transition-all hover:scale-110 hover:bg-sage hover:text-forest hover:shadow-lg"
 						aria-label="Instagram"
 					>
 						<svg

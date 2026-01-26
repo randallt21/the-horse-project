@@ -60,6 +60,29 @@
 					don't just receive care—they give back immeasurably.
 				</p>
 			</div>
+
+			<div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+				<div class="aspect-video overflow-hidden rounded-xl shadow-lg">
+					<iframe
+						class="h-full w-full"
+						src="https://www.youtube.com/embed/GjaaS2bHwJk"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen
+					></iframe>
+				</div>
+				<div class="aspect-video overflow-hidden rounded-xl shadow-lg">
+					<iframe
+						class="h-full w-full"
+						src="https://www.youtube.com/embed/VODB88T_eG8"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen
+					></iframe>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
