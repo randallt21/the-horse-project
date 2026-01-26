@@ -1,6 +1,7 @@
 name = "the-horse-project"
-compatibility_date = "2024-01-01"
+compatibility_date = "2026-01-26"
 compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".svelte-kit/cloudflare"
 
 # Email Routing binding - sends volunteer form notifications to staff
 # IMPORTANT: Update destination_address with your verified email from Cloudflare Dashboard

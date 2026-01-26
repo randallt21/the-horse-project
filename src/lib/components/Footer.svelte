@@ -7,6 +7,7 @@
 		{ label: "Programs", href: "/programs" },
 		{ label: "Volunteer", href: "/join" },
 		{ label: "Donate", href: "/donate" },
+		{ label: "Contact Us", href: "/contact" },
 	];
 
 	const contactInfo = {

@@ -8,6 +8,7 @@
 		{ label: "Horses", href: "/horses" },
 		{ label: "Programs", href: "/programs" },
 		{ label: "Volunteer", href: "/join" },
+		{ label: "Contact", href: "/contact" },
 	];
 
 	let scrolled = $state(false);
