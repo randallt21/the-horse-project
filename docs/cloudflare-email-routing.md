@@ -43,23 +43,49 @@ If you want emails to appear as coming from your domain:
 
 ---
 
+## Configuring the Binding (CRITICAL)
+
+**Note:** For Cloudflare **Pages** projects, the `[[send_email]]` binding configuration in `wrangler.toml` is **not supported**. You must configure this manually in the Cloudflare Dashboard.
+
+### Step 1: Configure Binding in Dashboard
+
+1.  Deploy your project to Cloudflare Pages first (it will build, but email features won't work yet).
+2.  Go to **Cloudflare Dashboard > Pages > [Your Project]**.
+3.  Click **Settings** -> **Functions**.
+4.  Scroll down to the **Email Routing** section.
+5.  Click **Add Binding**.
+6.  Configure the binding:
+    - **Name**: `EMAIL` (Must match the code exactly)
+    - **Destination Address**: `volunteers@thehorseprojectsantabarbara.com` (or your desired verified destination)
+7.  Click **Save**.
+8.  **Re-deploy**: You may need to trigger a new deployment (e.g., push a small commit) for the binding to take effect.
+
+---
+
+## DNS Configuration (If using a new domain)
+
+If you haven't set up the domain `thehorseprojectsantabarbara.com` yet, you need to configure the DNS records provided by Cloudflare Email Routing.
+
+1.  Go to **Email > Email Routing > Settings**.
+2.  Click **enable**. Cloudflare will provide a list of DNS records (MX and TXT).
+3.  Add these records to your DNS provider (if you are managing DNS outside of Cloudflare):
+    - **MX Records**: Ensure they point to Cloudflare's mail servers.
+    - **TXT (SPF) Record**: Ensure it includes `include:_spf.mx.cloudflare.net` to allow Cloudflare to send emails on your behalf.
+
+---
+
 ## Technical Implementation
 
-### wrangler.toml Configuration
+### wrangler.toml
 
-Create `wrangler.toml` in the project root:
+Your `wrangler.toml` should look like this (clean, without bindings):
 
 ```toml
 name = "the-horse-project"
-compatibility_date = "2024-01-01"
-
-# Email Routing binding
-[[send_email]]
-name = "EMAIL"
-destination_address = "YOUR_VERIFIED_EMAIL@example.com"
+compatibility_date = "2026-01-26"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".svelte-kit/cloudflare"
 ```
-
-Replace `YOUR_VERIFIED_EMAIL@example.com` with your verified destination address.
 
 ### TypeScript Types (app.d.ts)
 
@@ -71,7 +97,7 @@ interface SendEmail {
 }
 
 interface Platform {
-  env: {
+  env?: {
     EMAIL?: SendEmail;
   };
   context: {
@@ -82,7 +108,7 @@ interface Platform {
 
 ### Sending Emails from SvelteKit
 
-Use the `mimetext` library to construct RFC 5322 compliant emails:
+Use the `mimetext` library to construct RFC 5322 compliant emails. The backend logic remains the same.
 
 ```typescript
 import { EmailMessage } from "cloudflare:email";
@@ -93,27 +119,34 @@ export const actions = {
   default: async ({ request, platform }) => {
     const data = await request.formData();
 
-    // Build MIME message
-    const msg = createMimeMessage();
-    msg.setSender({ name: "Website", addr: "website@yourdomain.com" });
-    msg.setRecipient("destination@example.com");
-    msg.setSubject("New Volunteer Application");
-    msg.addMessage({
-      contentType: "text/plain",
-      data: `Name: ${data.get("firstName")} ${data.get("lastName")}\nEmail: ${data.get("email")}`,
-    });
-
-    // Send via Cloudflare binding
-    if (platform?.env?.EMAIL) {
-      const message = new EmailMessage(
-        "website@yourdomain.com",
-        "destination@example.com",
-        msg.asRaw(),
-      );
-      await platform.env.EMAIL.send(message);
+    // Check if binding exists (it won't locally)
+    if (!platform?.env?.EMAIL) {
+      console.log("Skipping email send (no binding or local dev)");
+      return { success: true };
     }
 
-    return { success: true };
+    try {
+      const msg = createMimeMessage();
+      msg.setSender({ name: "Website", addr: "no-reply@thehorseprojectsantabarbara.com" });
+      msg.setRecipient("volunteers@thehorseprojectsantabarbara.com");
+      msg.setSubject("New Volunteer Application");
+      msg.addMessage({
+        contentType: "text/plain",
+        data: `Name: ${data.get("firstName")} ${data.get("lastName")}\nEmail: ${data.get("email")}`,
+      });
+
+      const message = new EmailMessage(
+        "no-reply@thehorseprojectsantabarbara.com",
+        "volunteers@thehorseprojectsantabarbara.com",
+        msg.asRaw(),
+      );
+
+      await platform.env.EMAIL.send(message);
+      return { success: true };
+    } catch (e) {
+      console.error("Email send failed:", e);
+      return { success: false, error: "Email failed to send" };
+    }
   },
 };
 ```
@@ -124,22 +157,20 @@ export const actions = {
 
 Email sending **only works in production** (deployed to Cloudflare). During local development:
 
-- The `platform.env.EMAIL` binding will be `undefined`
-- The code gracefully skips email sending
-- Form submission still works and shows success state
-
-To test email functionality, you must deploy to Cloudflare Pages.
+- The `platform.env.EMAIL` binding will be `undefined`.
+- The code provided checks for this and skips sending.
+- To test the full flow, you must deploy.
 
 ---
 
 ## Deployment Checklist
 
-- [ ] Enable Email Routing in Cloudflare Dashboard
-- [ ] Add and verify destination email address
-- [ ] Create `wrangler.toml` with correct destination address
-- [ ] Deploy to Cloudflare Pages
-- [ ] Test volunteer form submission
-- [ ] Confirm email arrives at destination inbox
+- [ ] Enable Email Routing in Cloudflare Dashboard (DNS Setup).
+- [ ] Verify destination email address in Email Routing settings.
+- [ ] Add `EMAIL` binding in Pages > Settings > Functions > Email Routing.
+- [ ] Deploy to Cloudflare Pages.
+- [ ] Test volunteer form submission.
+- [ ] Confirm email arrives at destination inbox.
 
 ---
 

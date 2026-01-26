@@ -4,7 +4,7 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".svelte-kit/cloudflare"
 
 # Email Routing binding - sends volunteer form notifications to staff
-# IMPORTANT: Update destination_address with your verified email from Cloudflare Dashboard
-[[send_email]]
-name = "EMAIL"
-destination_address = "volunteers@thehorseprojectsantabarbara.com"
+# IMPORTANT: This binding cannot be defined in wrangler.toml for Pages.
+# You MUST configure this in the Cloudflare Dashboard:
+# Go to your Pages project -> Settings -> Functions -> Email Routing
+# Add a binding with Name: "EMAIL" and Destination: "volunteers@thehorseprojectsantabarbara.com"
