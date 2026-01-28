@@ -21,7 +21,7 @@
 
 <!-- Hero Section -->
 <section
-	class="relative flex min-h-[66vh] items-center justify-center overflow-hidden bg-obsidian py-20 md:py-0"
+	class="relative flex min-h-screen items-center justify-center overflow-hidden bg-obsidian py-20 md:min-h-[66vh] md:py-0"
 >
 	<!-- Background Video -->
 	<video
@@ -38,7 +38,7 @@
 	<div class="absolute inset-0 bg-obsidian/50"></div>
 
 	<!-- Content -->
-	<div class="relative z-10 container mx-auto px-6 text-center">
+	<div class="relative z-10 container mx-auto px-6 pt-32 text-center md:pt-0">
 		<div class="stagger-children mx-auto max-w-4xl">
 			<h1
 				class="mb-6 font-display text-4xl leading-tight font-bold text-cream md:text-6xl lg:text-7xl"
