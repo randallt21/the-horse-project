@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { Horse } from "$lib/models/Horse";
-	import { Card, Badge } from "$lib/components";
+	import { Card, Badge, Button } from "$lib/components";
 
 	interface Props {
 		horse: Horse;
 	}
 
 	let { horse }: Props = $props();
+	let expanded = $state(false);
 </script>
 
 <Card hover={true} class="group overflow-hidden">
@@ -50,11 +51,32 @@
 
 		<!-- Content -->
 		<div class="space-y-2">
-			<h3
-				class="font-display text-xl font-semibold text-forest transition-colors group-hover:text-sage"
-			>
-				{horse.name}
-			</h3>
+			<div class="flex items-start justify-between gap-4">
+				<h3
+					class="font-display text-xl font-semibold text-forest transition-colors group-hover:text-sage"
+				>
+					{horse.name}
+				</h3>
+
+				{#if horse.status === "Available"}
+					<Button
+						href="/contact?subject=Adoption"
+						variant="secondary"
+						size="sm"
+						class="border-sage text-sage hover:bg-sage hover:text-white"
+					>
+						{#snippet children()}
+							Inquire
+						{/snippet}
+					</Button>
+				{:else if horse.status === "Sanctuary"}
+					<Button href="/donate" variant="primary" size="sm">
+						{#snippet children()}
+							Donate To
+						{/snippet}
+					</Button>
+				{/if}
+			</div>
 
 			<div class="flex items-center gap-3 text-sm text-stone">
 				<span>{horse.breed}</span>
@@ -62,9 +84,20 @@
 				<span>{horse.ageDisplay}</span>
 			</div>
 
-			<p class="line-clamp-3 text-sm leading-relaxed text-forest/70">
+			<p
+				class="{expanded
+					? ''
+					: 'line-clamp-3'} text-sm leading-relaxed text-forest/70"
+			>
 				{horse.bio}
 			</p>
+
+			<button
+				class="mt-1 text-xs font-medium text-sage hover:underline"
+				onclick={() => (expanded = !expanded)}
+			>
+				{expanded ? "See Less" : "See More"}
+			</button>
 
 			{#if horse.sponsorshipTier}
 				<p class="text-sm font-medium text-sage">

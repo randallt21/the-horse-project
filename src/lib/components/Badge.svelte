@@ -33,5 +33,5 @@
 </script>
 
 <span class={classes}>
-	{status === "Sanctuary" ? "DONATE TO" : status}
+	{status}
 </span>

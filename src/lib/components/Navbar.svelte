@@ -22,9 +22,9 @@
 <svelte:window onscroll={handleScroll} />
 
 <nav
-	class="fixed top-0 right-0 left-0 z-50 transition-all duration-300 {scrolled
-		? 'bg-ivory/95 py-3 shadow-md backdrop-blur-md'
-		: 'bg-transparent py-6'}"
+	class="fixed top-0 right-0 left-0 z-50 py-3 transition-all duration-300 {scrolled
+		? 'bg-ivory/95 shadow-md backdrop-blur-md'
+		: 'bg-transparent'}"
 >
 	<div class="container mx-auto flex items-center justify-between px-6">
 		<!-- Logo -->
@@ -34,9 +34,7 @@
 					? "/horse-logo-forest.png"
 					: "/horse-logo-white.png"}
 				alt="The Horse Project"
-				class="w-auto transition-all duration-300 {scrolled
-					? 'h-12'
-					: 'h-24'}"
+				class="h-12 w-auto transition-all duration-300"
 			/>
 			<span
 				class="font-display text-2xl font-bold transition-colors {scrolled
@@ -112,7 +110,11 @@
 						{link.label}
 					</a>
 				{/each}
-				<Button variant="primary" href="/donate">
+				<Button
+					variant="primary"
+					href="/donate"
+					onclick={() => (mobileMenuOpen = false)}
+				>
 					{#snippet children()}
 						Donate
 					{/snippet}
