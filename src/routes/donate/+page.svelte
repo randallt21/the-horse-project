@@ -85,6 +85,22 @@
 			`Thank you for your interest in donating $${totalWithFees} (${frequency})!\n\nPayment processing coming soon. Please contact us at thehorseprojectsb@gmail.com to donate.`,
 		);
 	}
+
+	function selectSanctuaryTier(amount: number) {
+		frequency = "monthly";
+
+		if (amounts.includes(amount)) {
+			selectedAmount = amount;
+			customAmount = "";
+		} else {
+			selectedAmount = null;
+			customAmount = amount.toString();
+		}
+
+		document
+			.getElementById("donation-form")
+			?.scrollIntoView({ behavior: "smooth" });
+	}
 </script>
 
 <svelte:head>
@@ -109,7 +125,7 @@
 </section>
 
 <!-- Donation Widget -->
-<section class="bg-ivory py-16">
+<section class="bg-ivory py-16" id="donation-form">
 	<div class="container mx-auto px-6">
 		<div class="mx-auto max-w-2xl">
 			<Card padding="lg">
@@ -286,22 +302,36 @@
 			class="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
 		>
 			{#each sanctuaryTiers as tier}
-				<Card variant="default" padding="md" hover={true}>
-					{#snippet children()}
-						<div class="text-center">
-							<p class="mb-1 text-2xl font-bold text-forest">
-								${tier.amount}
-							</p>
-							<p class="mb-3 text-sm text-forest/60">/month</p>
-							<h3
-								class="mb-3 font-display text-xl font-semibold text-forest"
-							>
-								{tier.name}
-							</h3>
-							<p class="text-sm text-forest/70">{tier.benefit}</p>
-						</div>
-					{/snippet}
-				</Card>
+				<button
+					class="w-full text-left transition-transform active:scale-[0.98] cursor-pointer h-full"
+					onclick={() => selectSanctuaryTier(tier.amount)}
+				>
+					<Card
+						variant="default"
+						padding="md"
+						hover={true}
+						class="h-full flex flex-col justify-center items-center"
+					>
+						{#snippet children()}
+							<div class="text-center">
+								<p class="mb-1 text-2xl font-bold text-forest">
+									${tier.amount}
+								</p>
+								<p class="mb-3 text-sm text-forest/60">
+									/month
+								</p>
+								<h3
+									class="mb-3 font-display text-xl font-semibold text-forest"
+								>
+									{tier.name}
+								</h3>
+								<p class="text-sm text-forest/70">
+									{tier.benefit}
+								</p>
+							</div>
+						{/snippet}
+					</Card>
+				</button>
 			{/each}
 		</div>
 	</div>
